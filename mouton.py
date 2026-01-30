@@ -14,6 +14,29 @@ class Mouton:
     def update_age(self):
         self.age += 1
 
+
+def deplacement(mouton, grille):
+    x,y = mouton.pos
+    voisins = [(x+1,y), (x-1, y), (x, y+1), (x, y-1)]
+    for p in voisins :
+        if (0 <= p[0] < c.GRID_SIZE) and (0 <= p[1] < c.GRID_SIZE) :
+            if grille[p[0], p[1], 0] == 1 :
+                x,y = p
+                #self.alimentation()
+        else :
+            valide = False
+            while not valide :
+                new = rd.randint(0,3)
+                newpos = voisins[new]
+                nx, ny = newpos
+                if (grille[nx, ny, 1] == 0) and (grille[nx, ny, 2] == 0) :
+                    loup.pos = newpos
+                    valide = True
+                else :
+                    voisins.pop(new)
+                if len(voisins) == 0:
+                    valide = True
+
 NUMBER_SHEEP = c.INITIAL_SHEEP
 
 def initialiser_moutons(grille):
@@ -64,6 +87,7 @@ def reproduction_mouton(grille, mouton, dic_moutons):
                 nx = -1
         if nx != -1:
             nouveau_mouton = Mouton(nx, ny, c.SHEEP_INITIAL_ENERGY, 0)
+            mouton.energie = mouton.energie - c.REPRODUCTION_ENERGY_COST
             dic_moutons[NUMBER_SHEEP] = nouveau_mouton
 
 def mort_mouton(dico_moutons, grille):
