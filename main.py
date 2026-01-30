@@ -27,18 +27,24 @@ MAX_TURNS = 500
 # INITIALISATION :
 
 # création grille taille n*n
-# création de la liste des moutons
-# création de la liste des loups
+grille = initialisation_grille(GRID_SIZE)
+# création du dictionnaire de moutons
+initialisation_moutons(grille, INITIAL_SHEEP)
+# création du dictionnaire de loups
+initialisation_loups(grille, INITIAL_WOLVES)
 
 
 
 # SIMULATION :
 
-#incrémenter age
-#update herbe
-#phase moutons : déplacement, alimentation, perte energie 
-#phase loups : déplacement, chasse, perte energie
-#vérification des morts (énergie < 1 ou age > limite)
-#reproduction
-#affichage
-#verification des condition d'arret
+for i in range (MAX_TURNS):
+    #update herbe
+    update_herbe(grille, GRASS_GROWTH_PROBABILITY)
+    #phase moutons : déplacement, alimentation, perte energie
+    update_moutons() 
+    #phase loups : déplacement, chasse, perte energie
+    update_loups()
+    #vérification des morts (énergie < 1 ou age > limite)
+    #reproduction
+    #affichage
+    #verification des condition d'arret
