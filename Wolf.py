@@ -84,4 +84,5 @@ def reproduction_loup(grille, loup, dic_loups):
                 nx = -1
         if nx != -1:
             nouveau_loup = Loup(nx, ny, c.WOLF_INITIAL_ENERGY, 0)
+            loup.energie = loup.energie - c.REPRODUCTION_ENERGY_COST
             dic_loups[NUMBER_WOLF] = nouveau_loup
