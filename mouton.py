@@ -26,24 +26,20 @@ def deplacement(mouton, grille):
         voisins.append((x,y-1))
     if y < (c.GRID_SIZE - 1):
         voisins.append((x,y+1))
-    for p in voisins :
-        if (0 <= p[0] < c.GRID_SIZE) and (0 <= p[1] < c.GRID_SIZE) :
-            if grille[p[0], p[1], 0] == 1 :
-                x,y = p
-                #self.alimentation()
+    valide = False
+    while not valide :
+        new = rd.randint(0,len(voisins)-1)
+        newpos = voisins[new]
+        nx, ny = newpos
+        if (grille[nx, ny, 1] == 0) and (grille[nx, ny, 2] == 0) :
+            grille[newpos[0],newpos[1],1] = grille[x,y,1]
+            grille[x,y,1] = 0 
+            mouton.pos = newpos
+            valide = True
         else :
-            valide = False
-            while not valide :
-                new = rd.randint(0,len(voisins)-1)
-                newpos = voisins[new]
-                nx, ny = newpos
-                if (grille[nx, ny, 1] == 0) and (grille[nx, ny, 2] == 0) :
-                    mouton.pos = newpos
-                    valide = True
-                else :
-                    voisins.pop(new)
-                if len(voisins) == 0:
-                    valide = True
+            voisins.pop(new)
+        if len(voisins) == 0:
+            valide = True
 
 NUMBER_SHEEP = c.INITIAL_SHEEP
 
@@ -75,7 +71,6 @@ def gain_energie_mouton(grille, mouton):
 
 def reproduction_mouton(grille, mouton, dic_moutons):
     if mouton.energie > c.SHEEP_REPRODUCTION_THRESHOLD:
-        NUMBER_SHEEP += 1
         x, y = mouton.x, mouton.y
         voisins = [(x+1,y), (x-1, y), (x, y+1), (x, y-1)]
         for i in range(len(voisins)):
@@ -94,9 +89,11 @@ def reproduction_mouton(grille, mouton, dic_moutons):
                 valide = True
                 nx = -1
         if nx != -1:
+            NUMBER_SHEEP += 1
             nouveau_mouton = Mouton(nx, ny, c.SHEEP_INITIAL_ENERGY, 0)
             mouton.energie = mouton.energie - c.REPRODUCTION_ENERGY_COST
             dic_moutons[NUMBER_SHEEP] = nouveau_mouton
+            grille[nx,ny,1] = NUMBER_SHEEP
 
 def mort_mouton(dico_moutons, grille):
     for key in dico_moutons:
