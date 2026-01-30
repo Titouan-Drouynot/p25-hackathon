@@ -54,6 +54,16 @@ while running:
 
     grille = gh.update_grille(grille,proba_app = 0.1)
 
+    #cycle moutons
+
+    for clef in dic_moutons:
+        m.deplacement(dic_moutons[clef], grille)
+        m.reproduction_mouton(grille, dic_moutons[clef], dic_moutons)
+        m.gain_energie_mouton(grille, dic_moutons[clef])
+    
+    m.mort_mouton(dic_moutons, grille)
+
+
     w,h = 20,20
     def damier():
         for i in range(n):
