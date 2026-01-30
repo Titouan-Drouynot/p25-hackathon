@@ -29,13 +29,14 @@ def deplacement(loup, grille):
                 new = rd.randint(0,3)
                 newpos = voisins[new]
                 nx, ny = newpos
-                if grille[nx, ny, 2] == 0 :
-                    loup.pos = newpos
-                    valide = True
-                else :
-                    voisins.pop(new)
-                if len(voisins) == 0:
-                    valide = True
+                if (0 <= nx < c.GRID_SIZE) and (0 <= ny < c.GRID_SIZE):
+                    if (grille[nx, ny, 2] == 0) :
+                        loup.pos = newpos
+                        valide = True
+                    else :
+                        voisins.pop(new)
+                    if len(voisins) == 0:
+                        valide = True
     
     #def alimentation(self):
     #    self.energie = self.energie + WOLF_ENERGY_FROM_SHEEP
@@ -61,8 +62,8 @@ def initialiser_loups(grille):
 def gain_energie_loup(grille, loup):
     x, y = loup.pos
     if grille[x][y][1] != 0:
-        gain = c.WOLF_ENERGY_FROM_SHEEP 
-    return gain -c.WOLF_ENERGY_LOSS_PER_TURN
+        return c.WOLF_ENERGY_FROM_SHEEP -c.WOLF_ENERGY_LOSS_PER_TURN
+    return -c.WOLF_ENERGY_LOSS_PER_TURN
     
     
 
