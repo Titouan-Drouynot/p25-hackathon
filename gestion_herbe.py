@@ -25,4 +25,16 @@ def initialisation_grille(n,taux = 0.3):
 
 grille_i = initialisation_grille(10)
 
+def update_grille(grille,proba_app = 0.1):
+
+    n = len(grille)
+
+    # génération spontanée d'herbe
+    for i in range(n):
+        for j in range (n):
+
+            if not(grille[i,j,0]):
+
+                grille[i,j,0] = random.binomial(1,proba_app)
+
 
