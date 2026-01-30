@@ -20,7 +20,6 @@ def initialisation_grille(n,taux = 0.3):
             grille[i,j,0] = 1
             nb_herbe -= 1
     
-    print(grille)
     return(grille)
 
 grille_i = initialisation_grille(10)
@@ -35,6 +34,8 @@ def update_grille(grille,proba_app = 0.1):
 
             if not(grille[i,j,0]):
 
-                grille[i,j,0] = random.binomial(1,proba_app)
+                grille[i,j,0] = np.random.binomial(1,proba_app)
+    
+    return grille
 
 
