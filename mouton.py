@@ -1,6 +1,6 @@
 import random as rd
 import config as c
-import numpy as np
+import numpy as np 
 
 class Mouton:
     def __init__(self, x, y, energie, age):
