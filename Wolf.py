@@ -17,7 +17,13 @@ class animal :
 
 
 
-
+def gain_energie_loup(grille, loup):
+    x, y = loup.pos
+    if grille[x][y][1] != 0:
+        gain = WOLF_ENERGY_FROM_SHEEP
+    else :
+        gain = -WOLF_ENERGY_LOSS_PER_TURN
+    return gain
 
 
 
