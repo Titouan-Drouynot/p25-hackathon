@@ -42,7 +42,7 @@ NUMBER_SHEEP = c.INITIAL_SHEEP
 def initialiser_moutons(grille):
     dic_moutons = {}
 
-    nb_mouton = np.max(c.INITIAL_SHEEP, c.GRID_SIZE**2)
+    nb_mouton = np.min(c.INITIAL_SHEEP, c.GRID_SIZE**2)
     nb_moutons_places = 0
 
     while nb_mouton != 0:
