@@ -30,8 +30,7 @@ def deplacement(mouton, grille):
     for newpos in voisins :
         if grille[newpos[0], newpos[1], 0] == 1 :
             grille[newpos[0],newpos[1],1] = grille[x,y,1]
-            grille[x,y,1] = 0 
-            grille[newpos[0],newpos[1],0] = 0
+            grille[x,y,1] = 0
             mouton.pos = newpos
             valide = False
             break
@@ -73,6 +72,7 @@ def initialiser_moutons(grille):
 def gain_energie_mouton(grille, mouton):
     x, y = mouton.pos
     if grille[x][y][0] == 1:
+        grille[x,y,0] = 0
         return c.SHEEP_ENERGY_FROM_GRASS - c.SHEEP_ENERGY_LOSS_PER_TURN
     return - c.SHEEP_ENERGY_LOSS_PER_TURN
 
