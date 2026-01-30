@@ -28,13 +28,13 @@ def deplacement(mouton, grille):
         voisins.append((x,y+1))
     valide = True
     for newpos in voisins :
-        if grille[p[0], p[1], 0] == 1 :
+        if grille[newpos[0], newpos[1], 0] == 1 :
             grille[newpos[0],newpos[1],1] = grille[x,y,1]
             grille[x,y,1] = 0 
             grille[newpos[0],newpos[1],0] = 0
             mouton.pos = newpos
             valide = False
-            break()
+            break
     while valide :
         new = rd.randint(0,len(voisins)-1)
         newpos = voisins[new]
@@ -78,7 +78,6 @@ def gain_energie_mouton(grille, mouton):
 
 
 def reproduction_mouton(grille, mouton, dic_moutons):
-    NUMBER_SHEEP = c.INITIAL_SHEEP
     if mouton.energie > c.SHEEP_REPRODUCTION_THRESHOLD:
         x, y = mouton.pos
         voisins = [(x+1,y), (x-1, y), (x, y+1), (x, y-1)]
@@ -105,7 +104,8 @@ def reproduction_mouton(grille, mouton, dic_moutons):
             grille[nx,ny,1] = NUMBER_SHEEP
 
 def mort_mouton(dico_moutons, grille):
-    for key in dico_moutons:
+    keys = list(dico_moutons.keys())
+    for key in keys:
         mouton = dico_moutons[key]
         x,y = mouton.pos
         if (mouton.age > c.SHEEP_MAX_AGE) or (mouton.energie < 0) or (grille[x,y,2] != 0):
