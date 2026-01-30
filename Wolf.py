@@ -34,7 +34,7 @@ def deplacement(loup, grille):
         else :
             valide = False
             while not valide :
-                new = rd.randint(0,len(voisins))
+                new = rd.randint(0,len(voisins)-1)
                 newpos = voisins[new]
                 nx, ny = newpos
                 if (0 <= nx < c.GRID_SIZE) and (0 <= ny < c.GRID_SIZE):
