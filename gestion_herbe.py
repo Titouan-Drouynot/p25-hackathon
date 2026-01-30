@@ -35,6 +35,8 @@ def update_grille(grille,proba_app = 0.1):
 
             if not(grille[i,j,0]):
 
-                grille[i,j,0] = random.binomial(1,proba_app)
+                grille[i,j,0] = np.random.binomial(1,proba_app)
+    
+    return grille
 
 
