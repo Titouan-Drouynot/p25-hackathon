@@ -1,5 +1,6 @@
 import random as rd
 import config as c
+import numpy as np
 
 class Mouton:
     def __init__(self, x, y, energie, age):
@@ -17,8 +18,6 @@ NUMBER_SHEEP = c.INITIAL_SHEEP
 
 def initialiser_moutons(grille):
     dic_moutons = {}
-    grille = np.zeros((n,n,3),dtype = int)
-    # initialement de l'herbe partout
 
     nb_mouton = np.max(c.INITIAL_SHEEP, c.GRID_SIZE**2)
     nb_moutons_places = 0
@@ -27,7 +26,7 @@ def initialiser_moutons(grille):
         i = rd.randint(0,c.GRID_SIZE-1)
         j = rd.randint(0,c.GRID_SIZE-1)
 
-        if grille[i,j,1] != 0:
+        if grille[i,j,1] == 0:
             nb_mouton -= 1
             nb_moutons_place += 1
             dic_moutons[nb_moutons_places] = Mouton(i,j, c.SHEEP_INITIAL_ENERGY, 0)
