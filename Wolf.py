@@ -1,18 +1,34 @@
 import random as rd
 
-class animal :
+class Loup :
 
-    def __init__(self, x, y, energie, age, mouton):
+    def __init__(self, x, y, energie, age):
         self.pos = (x,y)
         self.energie = energie
         self.age = age
-        self.mouton = mouton
     
-    def deplacement (self, n):
+    def deplacement (self, grille, n):
         x,y = self.pos
         voisins = [(x+1,y), (x-1, y), (x, y+1), (x, y-1)]
-        
-        new = rd.randint(0,3) :
+        for p in voisins :
+            if (0 <= p[0] < n-1) and (0 <= p[1] < n) :
+                if grille[p[0], p[1], 1] == 1 :
+                    x,y = p
+                else :
+                    valide = False
+                    while not valide :
+                        new = rd.randint(0,3)
+                        newpos = voisins[new]
+                        nx, ny = newpos
+                        if grille[nx, ny, 2] == 0 :
+                            self.pos = new
+                            valide = True
+                        else :
+                            voisins.pop(new)
+                        if len(voisins) == 0:
+                            valide = True
+    
+     
 
 
 
