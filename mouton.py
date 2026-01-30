@@ -102,7 +102,7 @@ def mort_mouton(dico_moutons, grille):
     for key in dico_moutons:
         mouton = dico_moutons[key]
         x,y = mouton.pos
-        if (mouton.age > c.SHEEP_MAX_AGE) or (mouton.energy < 0) or (grille[x,y,2] != 0):
+        if (mouton.age > c.SHEEP_MAX_AGE) or (mouton.energie < 0) or (grille[x,y,2] != 0):
             del dico_moutons[key]
             grille[x,y,1] = 0
     
