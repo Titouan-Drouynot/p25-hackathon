@@ -8,6 +8,12 @@ class Loup :
         self.pos = (x,y)
         self.energie = energie
         self.age = age
+
+    def update_energie(self, gain):
+        self.energie += gain
+    
+    def update_age(self):
+        self.age += 1
     
     def deplacement(self, grille, n):
         x,y = self.pos
