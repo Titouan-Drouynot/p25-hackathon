@@ -32,17 +32,7 @@ clock = pg.time.Clock()
     #affichage
     # for i in range (c.GRID_SIZE) :
     #   ligne = ""
-"""for j in range (c.GRID_SIZE) :
-            if grille[i][j][1] > 0 :
-                ligne += 'S'
-            elif grille[i][j][2] > 0 :
-                ligne += 'W'
-            elif grille[i][j][0] :
-                ligne += '#'
-            else :
-                ligne += '.'
-        print(ligne)
-    print("")"""
+
     
     #verification des condition d'arret
 
@@ -72,8 +62,11 @@ while running:
 
     for clef in dic_moutons:
         m.deplacement(dic_moutons[clef], grille)
+        
         m.reproduction_mouton(grille, dic_moutons[clef], dic_moutons)
-        m.gain_energie_mouton(grille, dic_moutons[clef])
+
+        gain = m.gain_energie_mouton(grille, dic_moutons[clef])
+        dic_moutons[clef].energie += gain
     
     m.mort_mouton(dic_moutons, grille)
 
