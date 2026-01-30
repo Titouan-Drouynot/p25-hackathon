@@ -2,16 +2,18 @@
 
 import config as c
 import gestion_herbe as gh
-import moutons as m
+import mouton as m
 import Wolf as l
 import pygame as pg
+
+n = c.GRID_SIZE
 
 # création grille taille n*n
 grille = gh.initialisation_grille(c.GRID_SIZE)
 # création du dictionnaire de moutons
 dic_moutons = m.initialiser_moutons(grille)
 # création du dictionnaire de loups
-dic_loups = l.initialiser_loups(grille)
+# dic_loups = l.initialiser_loups(grille)
 
 pg.init()
 screen = pg.display.set_mode((600, 600))
@@ -28,25 +30,10 @@ clock = pg.time.Clock()
     #vérification des morts (énergie < 1 ou age > limite)
     #reproduction
     #affichage
-    '''for i in range (c.GRID_SIZE) :
-        ligne = ""
-        for j in range (c.GRID_SIZE) :
-            if grille[i][j][1] > 0 :
-                ligne += 'S'
-            elif grille[i][j][2] > 0 :
-                ligne += 'W'
-            elif grille[i][j][0] :
-                ligne += '#'
-            else :
-                ligne += '.'
-        print(ligne)
-    print("")'''
-    
-    #verification des condition d'arret
+    # verification des condition d'arret
 
     #statisiques : 
     
-
 running = True
 
 
@@ -59,6 +46,11 @@ while running:
         # un type de pg.QUIT signifie que l'on a cliqué sur la "croix" de la fenêtre
         if event.type == pg.QUIT:
             running = False
+        
+        elif event.type == pg.KEYDOWN:
+            # si la touche est "Q" on veut quitter le programme
+            if event.key == pg.K_q:
+                running = False
 
     grille = gh.update_grille(grille,proba_app = 0.1)
 
@@ -69,16 +61,23 @@ while running:
                 x,y = w*j , h*i
                 rect = pg.Rect(x, y, w, h)
                 if grille[i,j,0] == 0:
-                    colour = (88,41,0)
+                    colour_case = (88,41,0)
                 else:
-                    colour = (0,255,0)
-                pg.draw.rect(screen, colour, rect)
+                    colour_case = (0,255,0)
+                pg.draw.rect(screen, colour_case, rect)
+
+                rect = pg.Rect(x+10,y+10,w-10,w-10)
+                
+                if grille[i,j,1] != 0:
+                    colour_case = (255,255,255)
+                    pg.draw.rect(screen, colour_case, rect)
+                
     
     damier()
 
     pg.display.update()
 
-    print("Nombre de moutons vivants: " + len(dic_moutons))
-    print("Nombre de moutons morts: " + m.NUMBER_SHEEP - len(dic_moutons))
-    print("Nombre de loups: " + len(dic_loups))
-    print("Nombre de moutons morts: " + m.NUMBER_WOLF - len(dic_loups))
+    print("Nombre de moutons vivants: ", len(dic_moutons))
+    print("Nombre de moutons morts: ", m.NUMBER_SHEEP - len(dic_moutons))
+    # print("Nombre de loups: ", len(dic_loups))
+    # print("Nombre de moutons morts: ", m.NUMBER_WOLF - len(dic_loups))

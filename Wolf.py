@@ -37,7 +37,7 @@ class Loup :
 
 def initialiser_loups(grille):
     dic_loups = {}
-    nb_loups = np.max(c.INITIAL_WOLVES, c.GRID_SIZE**2-c.INITIAL_SHEEP)
+    nb_loups = max(c.INITIAL_WOLVES, c.GRID_SIZE**2-c.INITIAL_SHEEP)
     nb_loups_places = 0
 
     while nb_loups != 0:
