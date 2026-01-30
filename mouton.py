@@ -48,10 +48,9 @@ def deplacement(mouton, grille):
         if len(voisins) == 0:
             valide = False
 
-NUMBER_SHEEP = c.INITIAL_SHEEP
 
 def initialiser_moutons(grille):
-    dic_moutons = {}
+    dic_moutons = {-1 : c.INITIAL_SHEEP}
 
     nb_mouton = min(c.INITIAL_SHEEP, c.GRID_SIZE**2)
     nb_moutons_places = 0
@@ -81,7 +80,7 @@ def reproduction_mouton(grille, mouton, dic_moutons):
     if mouton.energie > c.SHEEP_REPRODUCTION_THRESHOLD:
         x, y = mouton.pos
         voisins = [(x+1,y), (x-1, y), (x, y+1), (x, y-1)]
-        for i in range(len(voisins)):
+        for i in range(len(voisins)-1, -1, -1):
             if (voisins[i][0] < 0)or(voisins[i][0] > c.GRID_SIZE-1)or(voisins[i][1] < 0)or(voisins[i][1] > c.GRID_SIZE-1):
                 voisins.pop(i)
         valide = False
@@ -97,14 +96,18 @@ def reproduction_mouton(grille, mouton, dic_moutons):
                 valide = True
                 nx = -1
         if nx != -1:
-            NUMBER_SHEEP += 1
+            dic_moutons[-1] += 1
             nouveau_mouton = Mouton(nx, ny, c.SHEEP_INITIAL_ENERGY, 0)
             mouton.energie = mouton.energie - c.REPRODUCTION_ENERGY_COST
-            dic_moutons[NUMBER_SHEEP] = nouveau_mouton
-            grille[nx,ny,1] = NUMBER_SHEEP
+            dic_moutons[dic_moutons[-1]] = nouveau_mouton
+            grille[nx,ny,1] = dic_moutons[-1]
 
 def mort_mouton(dico_moutons, grille):
     keys = list(dico_moutons.keys())
+    for i in range(len(keys)):
+        if keys[i] == -1:
+            keys.pop(i)
+            break
     for key in keys:
         mouton = dico_moutons[key]
         x,y = mouton.pos

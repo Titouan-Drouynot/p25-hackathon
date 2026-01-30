@@ -26,6 +26,7 @@ def deplacement(loup, grille):
         voisins.append((x,y-1))
     if y < (c.GRID_SIZE - 1):
         voisins.append((x,y+1))
+    valide = True
     for newpos in voisins :
         if grille[newpos[0], newpos[1], 1] > 0 :
             grille[newpos[0],newpos[1],2] = grille[x,y,2]
@@ -49,7 +50,7 @@ def deplacement(loup, grille):
     
 
 def initialiser_loups(grille):
-    dic_loups = {}
+    dic_loups = {-1 : c.INITIAL_WOLVES}
     nb_loups = min(c.INITIAL_WOLVES, max(c.GRID_SIZE**2-c.INITIAL_SHEEP,0))
     nb_loups_places = 0
 
@@ -59,7 +60,7 @@ def initialiser_loups(grille):
 
         if (grille[i,j,1] == 0) and (grille[i,j,2] == 0):
             nb_loups -= 1
-            nb_loups_place += 1
+            nb_loups_places += 1
             dic_loups[nb_loups_places] = Loup(i,j, c.WOLF_INITIAL_ENERGY, 0)
             grille[i,j,2] = nb_loups_places
     return dic_loups
@@ -73,18 +74,18 @@ def gain_energie_loup(grille, loup):
     
     
 
-NUMBER_WOLF = c.INITIAL_WOLVES
+
 
 def reproduction_loup(grille, loup, dic_loups):
     if loup.energie > c.WOLF_REPRODUCTION_THRESHOLD:
-        x, y = loup.x, loup.y
+        x, y = loup.pos
         voisins = [(x+1,y), (x-1, y), (x, y+1), (x, y-1)]
-        for i in range(len(voisins)):
-            if (voisins[i, 0] < 0)or(voisins[i, 0] > c.GRID_SIZE-1)or(voisins[i, 1] < 0)or(voisins[i, 1] > c.GRID_SIZE-1):
+        for i in range(len(voisins)-1, -1, -1):
+            if (voisins[i][0] < 0)or(voisins[i][0] > c.GRID_SIZE-1)or(voisins[i][1] < 0)or(voisins[i][1] > c.GRID_SIZE-1):
                 voisins.pop(i)
         valide = False
         while not valide :
-            new = rd.randint(0,3)
+            new = rd.randint(0,len(voisins)-1)
             newpos = voisins[new]
             nx, ny = newpos
             if (grille[nx, ny, 2] == 0) and (grille[nx, ny, 1] == 0) :
@@ -95,14 +96,19 @@ def reproduction_loup(grille, loup, dic_loups):
                 valide = True
                 nx = -1
         if nx != -1:
-            NUMBER_WOLF += 1
+            dic_loups[-1] += 1
             nouveau_loup = Loup(nx, ny, c.WOLF_INITIAL_ENERGY, 0)
             loup.energie = loup.energie - c.REPRODUCTION_ENERGY_COST
-            dic_loups[NUMBER_WOLF] = nouveau_loup
-            grille[nx,ny,2] = NUMBER_WOLF
+            dic_loups[dic_loups[-1]] = nouveau_loup
+            grille[nx,ny,2] = dic_loups[-1]
 
 def mort_loup(dico_loups, grille):
-    for key in dico_loups:
+    keys = list(dico_loups.keys())
+    for i in range(len(keys)):
+        if keys[i] == -1:
+            keys.pop(i)
+            break
+    for key in keys:
         loup = dico_loups[key]
         x,y = loup.pos
         if (loup.age > c.WOLF_MAX_AGE) or (loup.energie < 0):
