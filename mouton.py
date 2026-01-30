@@ -28,13 +28,13 @@ def deplacement(mouton, grille):
         voisins.append((x,y+1))
     valide = True
     for newpos in voisins :
-        if grille[p[0], p[1], 0] == 1 :
+        if grille[newpos[0], newpos[1], 0] == 1 :
             grille[newpos[0],newpos[1],1] = grille[x,y,1]
             grille[x,y,1] = 0 
             grille[newpos[0],newpos[1],0] = 0
             mouton.pos = newpos
             valide = False
-            break()
+            break
     while valide :
         new = rd.randint(0,len(voisins)-1)
         newpos = voisins[new]
