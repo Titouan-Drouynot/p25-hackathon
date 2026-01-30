@@ -35,7 +35,21 @@ class Loup :
     #    self.energie = self.energie + WOLF_ENERGY_FROM_SHEEP
 
 
+def initialiser_loups(grille):
+    dic_loups = {}
+    nb_loups = np.max(c.INITIAL_WOLVES, c.GRID_SIZE**2-c.INITIAL_SHEEP)
+    nb_loups_places = 0
 
+    while nb_loups != 0:
+        i = rd.randint(0,c.GRID_SIZE-1)
+        j = rd.randint(0,c.GRID_SIZE-1)
+
+        if (grille[i,j,1] == 0) and (grille[i,j,2] == 0):
+            nb_loups -= 1
+            nb_loups_place += 1
+            dic_loups[nb_loups_places] = Loup(i,j, c.WOLF_INITIAL_ENERGY, 0)
+            grille[i,j,2] = nb_loups_places
+    return dic_loups
 
 
 def gain_energie_loup(grille, loup):
@@ -49,7 +63,7 @@ def gain_energie_loup(grille, loup):
 NUMBER_WOLF = c.INITIAL_WOLVES
 
 def reproduction_loup(grille, loup, dic_loups):
-    if loup.energie > c.SHEEP_REPRODUCTION_THRESHOLD:
+    if loup.energie > c.WOLF_REPRODUCTION_THRESHOLD:
         NUMBER_WOLF += 1
         x, y = loup.x, loup.y
         voisins = [(x+1,y), (x-1, y), (x, y+1), (x, y-1)]
