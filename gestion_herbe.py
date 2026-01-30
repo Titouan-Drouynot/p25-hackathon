@@ -20,7 +20,6 @@ def initialisation_grille(n,taux = 0.3):
             grille[i,j,0] = 1
             nb_herbe -= 1
     
-    print(grille)
     return(grille)
 
 grille_i = initialisation_grille(10)
