@@ -78,6 +78,7 @@ def gain_energie_mouton(grille, mouton):
 
 
 def reproduction_mouton(grille, mouton, dic_moutons):
+    NUMBER_SHEEP = c.INITIAL_SHEEP
     if mouton.energie > c.SHEEP_REPRODUCTION_THRESHOLD:
         x, y = mouton.pos
         voisins = [(x+1,y), (x-1, y), (x, y+1), (x, y-1)]
@@ -86,7 +87,7 @@ def reproduction_mouton(grille, mouton, dic_moutons):
                 voisins.pop(i)
         valide = False
         while not valide :
-            new = rd.randint(0,len(voisins))
+            new = rd.randint(0,len(voisins)-1)
             newpos = voisins[new]
             nx, ny = newpos
             if (grille[nx, ny, 2] == 0) and (grille[nx, ny, 1] == 0) :
