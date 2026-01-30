@@ -59,7 +59,7 @@ def initialiser_moutons(grille):
 
         if grille[i,j,1] == 0:
             nb_mouton -= 1
-            nb_moutons_place += 1
+            nb_moutons_places += 1
             dic_moutons[nb_moutons_places] = Mouton(i,j, c.SHEEP_INITIAL_ENERGY, 0)
             grille[i,j,1] = nb_moutons_places
     return dic_moutons
@@ -69,8 +69,8 @@ def initialiser_moutons(grille):
 def gain_energie_mouton(grille, mouton):
     x, y = mouton.pos
     if grille[x][y][0] == 1:
-        gain = c.SHEEP_ENERGY_FROM_GRASS
-    return gain - c.SHEEP_ENERGY_LOSS_PER_TURN
+        return c.SHEEP_ENERGY_FROM_GRASS - c.SHEEP_ENERGY_LOSS_PER_TURN
+    return - c.SHEEP_ENERGY_LOSS_PER_TURN
 
 
 def reproduction_mouton(grille, mouton, dic_moutons):

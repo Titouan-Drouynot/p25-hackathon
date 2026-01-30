@@ -106,6 +106,6 @@ def mort_loup(dico_loups, grille):
     for key in dico_loups:
         loup = dico_loups[key]
         x,y = loup.pos
-        if (loup.age > c.WOLF_MAX_AGE) or (loup.energy < 0):
+        if (loup.age > c.WOLF_MAX_AGE) or (loup.energie < 0):
             del dico_loups[key]
             grille[x,y,2] = 0
