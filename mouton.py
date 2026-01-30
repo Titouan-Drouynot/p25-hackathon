@@ -17,7 +17,15 @@ class Mouton:
 
 def deplacement(mouton, grille):
     x,y = mouton.pos
-    voisins = [(x+1,y), (x-1, y), (x, y+1), (x, y-1)]
+    voisins = []
+    if x > 0:
+        voisins.append((x-1,y))
+    if x < (c.GRID_SIZE - 1):
+        voisins.append((x+1,y))
+    if y > 0:
+        voisins.append((x,y+1))
+    if y < (c.GRID_SIZE - 1):
+        voisins.append((x,y-1))
     for p in voisins :
         if (0 <= p[0] < c.GRID_SIZE) and (0 <= p[1] < c.GRID_SIZE) :
             if grille[p[0], p[1], 0] == 1 :
@@ -42,7 +50,7 @@ NUMBER_SHEEP = c.INITIAL_SHEEP
 def initialiser_moutons(grille):
     dic_moutons = {}
 
-    nb_mouton = np.min(c.INITIAL_SHEEP, c.GRID_SIZE**2)
+    nb_mouton = min(c.INITIAL_SHEEP, c.GRID_SIZE**2)
     nb_moutons_places = 0
 
     while nb_mouton != 0:
