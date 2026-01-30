@@ -86,3 +86,11 @@ def reproduction_loup(grille, loup, dic_loups):
             nouveau_loup = Loup(nx, ny, c.WOLF_INITIAL_ENERGY, 0)
             loup.energie = loup.energie - c.REPRODUCTION_ENERGY_COST
             dic_loups[NUMBER_WOLF] = nouveau_loup
+
+def mort_loup(dico_loups, grille):
+    for key in dico_loups:
+        loup = dico_loups[key]
+        x,y = loup.pos
+        if (loup.age > c.WOLF_MAX_AGE) or (loup.energy < 0):
+            del dico_loups[key]
+            grille[x,y,2] = 0
