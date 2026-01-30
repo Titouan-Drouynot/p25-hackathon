@@ -1,4 +1,5 @@
 import random as rd
+import config as c
 
 class Mouton:
     def __init__(self, x, y, energie, age):
@@ -12,22 +13,22 @@ class Mouton:
     def update_age(self):
         self.age += 1
 
-NUMBER_SHEEP = INITIAL_SHEEP
+NUMBER_SHEEP = c.INITIAL_SHEEP
 
 def gain_energie_mouton(grille, mouton):
     x, y = mouton.pos
     if grille[x][y][0] == 1:
-        gain = SHEEP_ENERGY_FROM_GRASS
-    return gain - SHEEP_ENERGY_LOSS_PER_TURN
+        gain = c.SHEEP_ENERGY_FROM_GRASS
+    return gain - c.SHEEP_ENERGY_LOSS_PER_TURN
 
 
 def reproduction_mouton(grille, mouton, dic_moutons):
-    if mouton.energie > SHEEP_REPRODUCTION_THRESHOLD:
+    if mouton.energie > c.SHEEP_REPRODUCTION_THRESHOLD:
         NUMBER_SHEEP += 1
         x, y = mouton.x, mouton.y
         voisins = [(x+1,y), (x-1, y), (x, y+1), (x, y-1)]
         for i in range(len(voisins)):
-            if (voisins[i, 0] < 0)or(voisins[i, 0] > GRID_SIZE-1)or(voisins[i, 1] < 0)or(voisins[i, 1] > GRID_SIZE-1):
+            if (voisins[i, 0] < 0)or(voisins[i, 0] > c.GRID_SIZE-1)or(voisins[i, 1] < 0)or(voisins[i, 1] > c.GRID_SIZE-1):
                 voisins.pop(i)
         valide = False
         while not valide :
@@ -42,7 +43,7 @@ def reproduction_mouton(grille, mouton, dic_moutons):
                 valide = True
                 nx = -1
         if nx != -1:
-            nouveau_mouton = Mouton(nx, ny, SHEEP_INITIAL_ENERGY, 0)
+            nouveau_mouton = Mouton(nx, ny, c.SHEEP_INITIAL_ENERGY, 0)
             dic_moutons[NUMBER_SHEEP] = nouveau_mouton
 
 """def mort_mouton(mouton):
