@@ -30,7 +30,7 @@ def deplacement(mouton, grille):
                 newpos = voisins[new]
                 nx, ny = newpos
                 if (grille[nx, ny, 1] == 0) and (grille[nx, ny, 2] == 0) :
-                    loup.pos = newpos
+                    mouton.pos = newpos
                     valide = True
                 else :
                     voisins.pop(new)
