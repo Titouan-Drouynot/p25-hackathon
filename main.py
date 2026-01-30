@@ -59,16 +59,18 @@ while running:
     grille = gh.update_grille(grille,proba_app = 0.1)
 
     #cycle moutons
-
-    for clef in dic_moutons:
+    keys = list(dic_moutons.keys())
+    for clef in keys:
         m.deplacement(dic_moutons[clef], grille)
-        
+
         m.reproduction_mouton(grille, dic_moutons[clef], dic_moutons)
 
         gain = m.gain_energie_mouton(grille, dic_moutons[clef])
         dic_moutons[clef].energie += gain
-    
+
+    #cycle loups
     m.mort_mouton(dic_moutons, grille)
+
 
 
     w,h = 20,20
