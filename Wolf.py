@@ -17,14 +17,20 @@ class Loup :
     
 def deplacement(loup, grille):
     x,y = loup.pos
-    voisins = [(x+1,y), (x-1, y), (x, y+1), (x, y-1)]
-    for i in range(len(voisins)):
-        if (voisins[i, 0] < 0)or(voisins[i, 0] > c.GRID_SIZE-1)or(voisins[i, 1] < 0)or(voisins[i, 1] > c.GRID_SIZE-1):
-                    voisins.pop(i)
+    voisins = []
+    if x > 0:
+        voisins.append((x-1,y))
+    if x < (c.GRID_SIZE - 1):
+        voisins.append((x+1,y))
+    if y > 0:
+        voisins.append((x,y+1))
+    if y < (c.GRID_SIZE - 1):
+        voisins.append((x,y-1))
     for p in voisins :
-        if grille[p[0], p[1], 1] == 1 :
-            x,y = p
-            #self.alimentation()
+        if (0 <= p[0] < c.GRID_SIZE) and (0 <= p[1] < c.GRID_SIZE) :
+            if grille[p[0], p[1], 1] == 1 :
+                x,y = p
+                #self.alimentation()
         else :
             valide = False
             while not valide :
