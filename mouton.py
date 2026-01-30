@@ -26,8 +26,16 @@ def deplacement(mouton, grille):
         voisins.append((x,y-1))
     if y < (c.GRID_SIZE - 1):
         voisins.append((x,y+1))
-    valide = False
-    while not valide :
+    valide = True
+    for newpos in voisins :
+        if grille[p[0], p[1], 0] == 1 :
+            grille[newpos[0],newpos[1],1] = grille[x,y,1]
+            grille[x,y,1] = 0 
+            grille[newpos[0],newpos[1],0] = 0
+            mouton.pos = newpos
+            valide = False
+            break()
+    while valide :
         new = rd.randint(0,len(voisins)-1)
         newpos = voisins[new]
         nx, ny = newpos
@@ -35,11 +43,11 @@ def deplacement(mouton, grille):
             grille[newpos[0],newpos[1],1] = grille[x,y,1]
             grille[x,y,1] = 0 
             mouton.pos = newpos
-            valide = True
+            valide = False
         else :
             voisins.pop(new)
         if len(voisins) == 0:
-            valide = True
+            valide = False
 
 NUMBER_SHEEP = c.INITIAL_SHEEP
 
@@ -71,10 +79,10 @@ def gain_energie_mouton(grille, mouton):
 
 def reproduction_mouton(grille, mouton, dic_moutons):
     if mouton.energie > c.SHEEP_REPRODUCTION_THRESHOLD:
-        x, y = mouton.x, mouton.y
+        x, y = mouton.pos
         voisins = [(x+1,y), (x-1, y), (x, y+1), (x, y-1)]
         for i in range(len(voisins)):
-            if (voisins[i, 0] < 0)or(voisins[i, 0] > c.GRID_SIZE-1)or(voisins[i, 1] < 0)or(voisins[i, 1] > c.GRID_SIZE-1):
+            if (voisins[i][0] < 0)or(voisins[i][0] > c.GRID_SIZE-1)or(voisins[i][1] < 0)or(voisins[i][1] > c.GRID_SIZE-1):
                 voisins.pop(i)
         valide = False
         while not valide :
