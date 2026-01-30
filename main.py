@@ -2,7 +2,7 @@
 
 import config as c
 import gestion_herbe as gh
-import moutons as m
+import mouton as m
 import Wolf as l
 import pygame as pg
 
@@ -28,9 +28,9 @@ clock = pg.time.Clock()
     #vérification des morts (énergie < 1 ou age > limite)
     #reproduction
     #affichage
-    '''for i in range (c.GRID_SIZE) :
-        ligne = ""
-        for j in range (c.GRID_SIZE) :
+    # for i in range (c.GRID_SIZE) :
+    #   ligne = ""
+"""for j in range (c.GRID_SIZE) :
             if grille[i][j][1] > 0 :
                 ligne += 'S'
             elif grille[i][j][2] > 0 :
@@ -40,7 +40,7 @@ clock = pg.time.Clock()
             else :
                 ligne += '.'
         print(ligne)
-    print("")'''
+    print("")"""
     
     #verification des condition d'arret
 
