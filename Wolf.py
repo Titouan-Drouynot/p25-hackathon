@@ -35,30 +35,21 @@ class Loup :
     #    self.energie = self.energie + WOLF_ENERGY_FROM_SHEEP
 
     
-
-
-
-
-
-
-    def gain_energie_loup(grille, loup):
-        x, y = loup.pos
-        if grille[x][y][1] != 0:
-            gain = c.WOLF_ENERGY_FROM_SHEEP
-        else :
-            gain = -c.WOLF_ENERGY_LOSS_PER_TURN
-        return gain
-    
     
 
 
 def gain_energie_loup(grille, loup):
     x, y = loup.pos
     if grille[x][y][1] != 0:
-        gain = WOLF_ENERGY_FROM_SHEEP
+        gain = c.WOLF_ENERGY_FROM_SHEEP
     else :
-        gain = -WOLF_ENERGY_LOSS_PER_TURN
+        gain = -c.WOLF_ENERGY_LOSS_PER_TURN
     return gain
 
 
-
+def reproduction_loup(grille, loup, dic_loup):
+    if loup.energie > c.WOLF_REPRODUCTION_THRESHOLD:
+        x,y = loup.pos
+        NUMBER_WOLF += 1
+        nouveau_loup = Loup(x, y, c.LOUP_INITIAL_ENERGY, 0)
+        dic_loup[NUMBER_WOLF] = nouveau_loup
